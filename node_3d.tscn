@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://player_move.gd" id="1_3w378"]
 [ext_resource type="Shader" path="res://node_3d.gdshader" id="1_bq3vy"]
 [ext_resource type="Script" path="res://player_cam.gd" id="2_cfjd0"]
+[ext_resource type="Texture2D" uid="uid://dbvpr64gra7yk" path="res://Aperture_Science_logo_cercle-3962497901.png" id="3_vg2la"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xx3kl"]
 size = Vector3(100, 0.1, 100)
@@ -20,10 +21,8 @@ size = Vector3(100, 0.1, 100)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hyrp0"]
 
-[sub_resource type="ImageTexture" id="ImageTexture_bll23"]
-
-[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_y47wq"]
-albedo_texture = SubResource("ImageTexture_bll23")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wm6qp"]
+albedo_texture = ExtResource("3_vg2la")
 
 [node name="Node3D" type="Node3D"]
 
@@ -45,10 +44,9 @@ shape = SubResource("CapsuleShape3D_fla64")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 mesh = SubResource("CapsuleMesh_hyrp0")
-surface_material_override/0 = SubResource("ORMMaterial3D_y47wq")
+surface_material_override/0 = SubResource("StandardMaterial3D_wm6qp")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("2_cfjd0")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
