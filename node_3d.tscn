@@ -1,16 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://cet5x83r5jeyl"]
+[gd_scene load_steps=11 format=3 uid="uid://cet5x83r5jeyl"]
 
 [ext_resource type="Script" path="res://player_move.gd" id="1_3w378"]
+[ext_resource type="Shader" path="res://node_3d.gdshader" id="1_bq3vy"]
+[ext_resource type="Script" path="res://player_cam.gd" id="2_cfjd0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xx3kl"]
 size = Vector3(100, 0.1, 100)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_syt8p"]
+render_priority = 0
+shader = ExtResource("1_bq3vy")
+shader_parameter/u_time = null
+
 [sub_resource type="BoxMesh" id="BoxMesh_lwlrc"]
+material = SubResource("ShaderMaterial_syt8p")
 size = Vector3(100, 0.1, 100)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fla64"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hyrp0"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_bll23"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_y47wq"]
+albedo_texture = SubResource("ImageTexture_bll23")
 
 [node name="Node3D" type="Node3D"]
 
@@ -22,19 +35,21 @@ shape = SubResource("BoxShape3D_xx3kl")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ground"]
 mesh = SubResource("BoxMesh_lwlrc")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+[node name="player" type="CharacterBody3D" parent="."]
 script = ExtResource("1_3w378")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("CapsuleShape3D_fla64")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 mesh = SubResource("CapsuleMesh_hyrp0")
+surface_material_override/0 = SubResource("ORMMaterial3D_y47wq")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.945194, 0.326509, 0, -0.326509, 0.945194, 0, 3.40972, 20.5085)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("2_cfjd0")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.996617, -0.082182, 1.18574e-09, 0.0479042, 0.580931, 0.812542, -0.0667763, -0.809793, 0.582903, 0, 14.9801, 0)
